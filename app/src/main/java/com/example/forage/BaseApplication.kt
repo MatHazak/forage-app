@@ -16,11 +16,11 @@
 package com.example.forage
 
 import android.app.Application
-import com.example.forage.data.ForageDatabase
+import com.example.forage.data.ForageableDatabase
 
 /**
  * An application class that inherits from [Application], allows for the creation of a singleton
- * instance of the [ForageDatabase]
+ * instance of the [ForageableDatabase]
  */
 class BaseApplication : Application() {
 
