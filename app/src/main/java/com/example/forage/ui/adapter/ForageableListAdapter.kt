@@ -32,7 +32,7 @@ class ForageableListAdapter(
 
     class ForageableViewHolder(
         private var binding: ListItemForageableBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(forageable: Forageable) {
             binding.forageable = forageable
@@ -40,7 +40,7 @@ class ForageableListAdapter(
         }
     }
 
-    companion object DiffCallback: DiffUtil.ItemCallback<Forageable>() {
+    companion object DiffCallback : DiffUtil.ItemCallback<Forageable>() {
         override fun areItemsTheSame(oldItem: Forageable, newItem: Forageable): Boolean {
             return oldItem.id == newItem.id
         }
@@ -52,17 +52,18 @@ class ForageableListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForageableViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        return ForageableViewHolder(
-            ListItemForageableBinding.inflate(layoutInflater, parent, false)
-        )
+        val binding =
+            ListItemForageableBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ForageableViewHolder(binding).apply {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                clickListener(getItem(position))
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: ForageableViewHolder, position: Int) {
         val forageable = getItem(position)
-        holder.itemView.setOnClickListener{
-            clickListener(forageable)
-        }
         holder.bind(forageable)
     }
 }
